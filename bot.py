@@ -17,6 +17,7 @@ else:
 
 url = f"https://api.idleclans.com/player?name={PLAYER_NAME}"
 data = requests.get(url).json()
+print(data)
 
 last_activity = data["lastActivity"]
 current_time = int(time.time())
