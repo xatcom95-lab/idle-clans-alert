@@ -1,0 +1,33 @@
+name: Idle Clans Alert
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run bot
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python bot.py
+
+      - name: Save state
+        run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@bot.com"
+          git add state.json
+          git commit -m "update state" || exit 0
+          git push
