@@ -15,12 +15,10 @@ if os.path.exists(STATE_FILE):
 else:
     state = {"status": "unknown"}
 
-url = f"https://api.idleclans.com/player?name={PLAYER_NAME}"
-data = requests.get(url).json()
-print(data)
+import random
 
-last_activity = data["lastActivity"]
-current_time = int(time.time())
+# FAKE DATA (for testing)
+idle_minutes = random.randint(0, 60)
 
 idle_minutes = (current_time - last_activity) / 60
 
